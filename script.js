@@ -1,33 +1,41 @@
-document.getElementById("dec-btn").addEventListener("click", decFunction);
-document.getElementById("reset-btn").addEventListener("click", resetFunction);
-document.getElementById("inc-btn").addEventListener("click", incFunction);
+// Set initial count
+let count = 0;
 
-var display = document.getElementById("num");
-var count = parseInt(display.textContent, 10);
+// Select value and buttons
+const value = document.querySelector("#value");
+const btns = document.querySelectorAll(".btn");
 
-function updateColor() {
-    if (count > 0) {
-        display.style.color = "green";
-    } else if (count == 0) {
-        display.style.color = "black";
-    } else {
-        display.style.color = "red";
+// Accessing each button
+btns.forEach(function (btn) {
+  btn.addEventListener("click", function (e) {
+
+    // On click get the class name
+    const styles = e.currentTarget.classList;
+
+    // If it is the decrease class decrement and so on.
+    if (styles.contains("decrease")) {
+      count--;
     }
-}
+    else if (styles.contains("increase")) {
+        count++;
+    }
+    else {
+        count = 0;
+    }
 
-function decFunction() { 
-    count -= 1;
-    display.textContent = count; 
-    updateColor();
-}
-function resetFunction() {
-    count = 0;
-    display.textContent = count; 
-    updateColor();
-}
+    // Changing the value color according to the number 
+    if (count > 0) {
+        value.style.color = "green";
+    }
+    if (count < 0) {
+        value.style.color = "red";
+    }
+    if (count == 0) {
+        value.style.color = "#222";
+    }
 
-function incFunction() {
-    count += 1;
-    display.textContent = count; 
-    updateColor();
-}
+    // Show the value on const value
+    value.textContent = count;
+    
+  });
+});
